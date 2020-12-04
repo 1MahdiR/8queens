@@ -6,6 +6,13 @@ def copy_ls(ls):
 
     return ls_temp
 
+def reverse_ls(ls):
+    ls_temp = []
+    while len(ls) != 0:
+        ls_temp.append(ls.pop())
+
+    return ls_temp
+
 def is_threatened(x1,y1,x2,y2):
     
     if x1 == x2:
@@ -21,9 +28,10 @@ def is_threatened(x1,y1,x2,y2):
 
 
 def print_board(ls):
+    print(ls)
     for i in ls:
         lsi = [0] * len(ls)
-
+        
         lsi[i] = 1
 
         print(*lsi)
@@ -61,4 +69,30 @@ def main(n):
     board = [0] * n
 
     print_board(board)
+
+    row_counter = 0
+    while True:
+        print("Yay")
+        if board_is_safe(board):
+            print_board(board)
+
+        ls_temp = []
+        for i in range(row_counter):
+            ls_temp.append(board.pop())
+    
+        ls_temp = reverse_ls(ls_temp)
+
+        x = board.pop()
+        if x == n-1:
+            board.append(0)
+            row_counter += 1
+        else:
+            board.append(board.pop() + 1)
+
+        while len(ls_temp) != 0:
+            board.append(ls_temp.pop())
+
+
+if __name__ == "__main__":
+    main(4)
 
