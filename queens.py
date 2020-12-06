@@ -7,7 +7,7 @@ def copy_ls(ls):
     return ls_temp
 
 def is_threatened(x1,y1,x2,y2):
-    
+
     if x1 == x2:
         return True
 
@@ -23,7 +23,7 @@ def print_board(ls):
     print(ls)
     for i in ls:
         lsi = [0] * len(ls)
-        
+
         lsi[i] = 1
 
         print(*lsi)
@@ -31,7 +31,7 @@ def print_board(ls):
 
 
 def board_is_safe(ls):
-    
+
     ls_temp = copy_ls(ls)
 
     counter = 0
@@ -39,12 +39,12 @@ def board_is_safe(ls):
         pos_1 = (ls_temp.pop(), counter)
 
         ls_temp_temp = copy_ls(ls_temp)
-        
+
         inner_counter = counter + 1
 
         while len(ls_temp_temp) != 0:
             pos_2 = (ls_temp_temp.pop(), inner_counter)
-            
+
             if is_threatened(*pos_1, *pos_2):
                 return False
 
@@ -57,7 +57,7 @@ def board_is_safe(ls):
 
 
 def main(n):
-    
+
     safe_ls = []
     ls = [0,0]
     flag = False
@@ -69,7 +69,7 @@ def main(n):
 
             ls.append(0)
         else:
-            
+
             if len(ls) != 0:
                 x = ls.pop()
                 x += 1
@@ -82,11 +82,11 @@ def main(n):
                 flag = False
             else:
                 return safe_ls
-            
+
 
 if __name__ == "__main__":
 
-    ls = main(10)
+    ls = main(8)
     for i in range(len(ls)):
         print(i+1)
         print_board(ls[i])
