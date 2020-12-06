@@ -72,9 +72,10 @@ def main(n):
 
     row_counter = 0
     while True:
-        print("Yay")
+        print_board(board)
         if board_is_safe(board):
             print_board(board)
+            break
 
         ls_temp = []
         for i in range(row_counter):
@@ -87,7 +88,7 @@ def main(n):
             board.append(0)
             row_counter += 1
         else:
-            board.append(board.pop() + 1)
+            board.append(x + 1)
 
         while len(ls_temp) != 0:
             board.append(ls_temp.pop())
