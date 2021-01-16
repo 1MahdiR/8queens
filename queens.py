@@ -1,3 +1,24 @@
+class stackNum:
+    def __init__(self,args):
+        if type(args) != list:
+            raise "args must be a list"
+        for i in args:
+            if type(i) != int:
+                raise "elements in agrs must be integers"
+
+        self._args = args
+        self.top = self._args[-1]
+
+    def __str__(self):
+        return "<stack contains: " + str(self._args)  + ">"
+
+    def push(self, x):
+        self._args.append(x)
+        self.top = self._args[-1]
+    
+    def pop(self):
+        self._args.pop()
+    
 def copy_ls(ls):
 
     ls_temp = []
