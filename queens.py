@@ -1,31 +1,46 @@
 class stackNum:
-    def __init__(self,args):
+    def __init__(self,args=[]):
         if type(args) != list:
-            raise "args must be a list"
+            raise Exception("args must be a list")
         for i in args:
             if type(i) != int:
-                raise "elements in agrs must be integers"
+                raise Exception("elements in agrs must be integers")
 
         self._args = args
-        self.top = self._args[-1]
+        self.top = len(self._args) - 1
 
     def __str__(self):
         return "<stack contains: " + str(self._args)  + ">"
 
     def push(self, x):
         self._args.append(x)
-        self.top = self._args[-1]
+        self.top = len(self._args) - 1
     
     def pop(self):
-        self._args.pop()
+        if self.top != -1:
+            x = self._args.pop()
+            self.top = len(self._args) - 1
+            return x
+        else:
+            raise Exception("stack empty")
+
+    def empty(self):
+        return True if self.top == -1 else False
+
+    def reverse(self):
+        return stackNum(self._args[::-1])
+
+    def copy(self):
+        ls = [x for x in self._args]
+        return stackNum(ls)
     
-def copy_ls(ls):
-
-    ls_temp = []
+def print_board(ls):
+    print(ls)
     for i in ls:
-        ls_temp.append(i)
-
-    return ls_temp
+        lsi = [0] * len(ls)
+        lsi[i] = 1
+        print(*lsi)
+    print()
 
 def is_threatened(x1,y1,x2,y2):
 
@@ -40,30 +55,19 @@ def is_threatened(x1,y1,x2,y2):
 
     return False
 
-def print_board(ls):
-    print(ls)
-    for i in ls:
-        lsi = [0] * len(ls)
-
-        lsi[i] = 1
-
-        print(*lsi)
-    print()
-
-
 def board_is_safe(ls):
 
-    ls_temp = copy_ls(ls)
+    ls_temp = ls.copy()
 
     counter = 0
-    while len(ls_temp) != 0:
+    while not ls_temp.empty():
         pos_1 = (ls_temp.pop(), counter)
 
-        ls_temp_temp = copy_ls(ls_temp)
+        ls_temp_temp = ls_temp.copy()
 
         inner_counter = counter + 1
 
-        while len(ls_temp_temp) != 0:
+        while not ls_temp_temp.empty():
             pos_2 = (ls_temp_temp.pop(), inner_counter)
 
             if is_threatened(*pos_1, *pos_2):
@@ -80,22 +84,24 @@ def board_is_safe(ls):
 def main(n):
 
     safe_ls = []
-    ls = [0,0]
+    ls = stackNum([0,0])
     flag = False
     while True:
 
         if board_is_safe(ls) and not flag:
-            if (len(ls) == n):
-                safe_ls.append(copy_ls(ls))
+            if ls.top == n - 1:
+                temp = ls.copy()
+                l = temp._args
+                safe_ls.append(l)
 
-            ls.append(0)
+            ls.push(0)
         else:
 
-            if len(ls) != 0:
+            if not ls.empty():
                 x = ls.pop()
                 x += 1
                 if x < n:
-                    ls.append(x)
+                    ls.push(x)
                 else:
                     flag = True
                     continue
