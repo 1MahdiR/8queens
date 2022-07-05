@@ -15,7 +15,7 @@ class stackNum:
     def push(self, x):
         self._args.append(x)
         self.top = len(self._args) - 1
-    
+
     def pop(self):
         if self.top != -1:
             x = self._args.pop()
@@ -33,7 +33,7 @@ class stackNum:
     def copy(self):
         ls = [x for x in self._args]
         return stackNum(ls)
-    
+
 def print_board(ls):
     print(ls)
     for i in ls:

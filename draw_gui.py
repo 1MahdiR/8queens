@@ -4,8 +4,6 @@ import pygame as pg
 
 import queens
 
-image = pg.image.load(r'queen.png')
-
 def drawBoard(n, s, ls):
     BLACK = pg.Color('black')
     WHITE = pg.Color('white')
@@ -78,5 +76,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     ls = queens.main(n)
+    
 
     main(n, ls)
